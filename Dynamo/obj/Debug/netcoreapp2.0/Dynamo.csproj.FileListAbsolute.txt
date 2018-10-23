@@ -1,0 +1,11 @@
+C:\Karan Docs\Sample Projects\DynamoDBTest\DynamoDBTest\Dynamo\bin\Debug\netcoreapp2.0\Dynamo.deps.json
+C:\Karan Docs\Sample Projects\DynamoDBTest\DynamoDBTest\Dynamo\bin\Debug\netcoreapp2.0\Dynamo.runtimeconfig.json
+C:\Karan Docs\Sample Projects\DynamoDBTest\DynamoDBTest\Dynamo\bin\Debug\netcoreapp2.0\Dynamo.runtimeconfig.dev.json
+C:\Karan Docs\Sample Projects\DynamoDBTest\DynamoDBTest\Dynamo\bin\Debug\netcoreapp2.0\Dynamo.dll
+C:\Karan Docs\Sample Projects\DynamoDBTest\DynamoDBTest\Dynamo\bin\Debug\netcoreapp2.0\Dynamo.pdb
+C:\Karan Docs\Sample Projects\DynamoDBTest\DynamoDBTest\Dynamo\obj\Debug\netcoreapp2.0\Dynamo.csprojResolveAssemblyReference.cache
+C:\Karan Docs\Sample Projects\DynamoDBTest\DynamoDBTest\Dynamo\obj\Debug\netcoreapp2.0\Dynamo.csproj.CoreCompileInputs.cache
+C:\Karan Docs\Sample Projects\DynamoDBTest\DynamoDBTest\Dynamo\obj\Debug\netcoreapp2.0\Dynamo.AssemblyInfoInputs.cache
+C:\Karan Docs\Sample Projects\DynamoDBTest\DynamoDBTest\Dynamo\obj\Debug\netcoreapp2.0\Dynamo.AssemblyInfo.cs
+C:\Karan Docs\Sample Projects\DynamoDBTest\DynamoDBTest\Dynamo\obj\Debug\netcoreapp2.0\Dynamo.dll
+C:\Karan Docs\Sample Projects\DynamoDBTest\DynamoDBTest\Dynamo\obj\Debug\netcoreapp2.0\Dynamo.pdb
