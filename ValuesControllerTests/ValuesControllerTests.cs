@@ -1,65 +1,52 @@
 using System;
 using Xunit;
+using Moq;
+using Microsoft.Extensions.Options;
+using System.Collections;
+using System.Collections.Generic;
+using Amazon.DynamoDBv2.DataModel;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Dynamo.Helper;
+using Dynamo.Model;
+using Dynamo.Controllers;
 
 namespace ValuesControllerTests
-{
-    //private Mock<IDynamoDbManager<MyModel>> _dbManager;
-    //private ValuesController _valuesController;
+{  
+    public class ValuesControllerTests
+    {
+        private Mock<IDynamoDbManager<MyModel>> _dbManager;
+        private ValuesController _valueController;
 
-    //public ValuesControllerTests()
-    //{
-    //    var mockRepository = new MockRepository(MockBehavior.Loose);
-    //    _dbManager = mockRepository.Create<IDynamoDbManager<MyModel>>();
-    //    var options = new OptionsWrapper<Dictionary<string, string>>(new Dictionary<string, string>()
-    //        {
-    //            {"dynamoDbTable", nameof(MyModel) }
-    //        });
-    //    _valuesController = new ValuesController(options, _dbManager.Object);
+        public ValuesControllerTests()
+        {
+            var mockRepository = new MockRepository(MockBehavior.Loose);
+            _dbManager = mockRepository.Create<IDynamoDbManager<MyModel>>();
+            var options = new OptionsWrapper<Dictionary<string, string>>(new Dictionary<string, string>()
+            {
+                {"dynamoDbTable", nameof(MyModel) }
+            });
+            _valueController = new ValuesController(options, _dbManager.Object);
+        }
 
-    //}
+        [Fact]
+        public async Task GetAllData_Test()
+        {
+            var searchResult = new List<MyModel>()
+            {
+                new MyModel(){ }
+            };
 
-    //[Fact]
-    //public async Task GetAllData_ShouldSelectUpdateByInLowerCase()
-    //{
-    //    //
-    //    var searchResult = new List<MyModel>()
-    //        {
-    //            new MyModel() {UpdatedBy = "UpdatedBy1"}
-    //        };
-    //    _dbManager
-    //        .Setup(_ => _.GetAsync(It.Is<List<ScanCondition>>(list => list.Count == 2)))
-    //        .ReturnsAsync(searchResult);
+            _dbManager
+             .Setup(_ => _.GetAsync(It.Is<List<ScanCondition>>(list => list.Count == 2)))
+             .ReturnsAsync(searchResult);
 
-    //    //
+            var result = await _valueController.GetAllData("new", "admin");
 
-    //    var result = await _valuesController.GetAllData("typeValue", "statusValue");
+            var okResult = result as OkObjectResult;
 
-    //    //
-    //    var okResult = result as OkObjectResult;
-    //    Assert.NotNull(okResult);
-    //    var values = okResult.Value as List<string>;
-    //    Assert.Contains("updatedby1", values);
-    //}
-
-    //[Fact]
-    //public async Task SaveData_ShouldCallSaveForAllRequestedData()
-    //{
-    //    //
-    //    var listData = new List<MyModel>()
-    //        {
-    //            new MyModel(),
-    //            new MyModel(),
-    //            new MyModel()
-    //        };
-    //    _dbManager
-    //        .Setup(_ => _.SaveAsync(It.IsAny<MyModel>()))
-    //        .Returns(Task.CompletedTask);
-
-    //    //
-
-    //    var result = await _valuesController.SaveData(listData, "", "", "");
-
-    //    //
-    //    _dbManager.Verify(_ => _.SaveAsync(It.IsAny<MyModel>()), Times.Exactly(3));
-    //}
+            Assert.NotNull(okResult);
+        }
+    }
 }

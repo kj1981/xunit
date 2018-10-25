@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dynamo.Helper
 {
-    public interface IDynamoDbManager
+    public interface IDynamoDbManager<T> : IDisposable where T : class
     {
         Task<List<T>> GetAsync(IEnumerable<ScanCondition> conditions);
 

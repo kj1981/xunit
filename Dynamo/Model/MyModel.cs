@@ -12,5 +12,7 @@ namespace Dynamo.Model
         string Name { get; set; }
 
         string Status { get; set; }
+
+        string Role { get; set; }
     }
 }

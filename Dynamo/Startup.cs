@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Amazon;
+using Amazon.DynamoDBv2;
 using Dynamo.Helper;
 using Dynamo.Model;
 using Microsoft.AspNetCore.Builder;
@@ -39,16 +40,18 @@ namespace Dynamo
             services.AddSingleton<IConfiguration>(Configuration);
            
             services.Configure<Dictionary<string, string>>(op => Configuration.GetSection("AppSettings")?.Bind(op));
-           
-            services.AddSingleton<IDbClientInitialization, DbClientInitialization>();
-            services.Configure<DbClientSettings>(c =>
-            {
-                c.Id = Configuration.GetValue<string>("AppSettings:awsId");
-                c.Password = Configuration.GetValue<string>("AppSettings:awsPassword");
-                c.Region = RegionEndpoint.GetBySystemName(Configuration.GetValue<string>("AppSettings:dynamoDbRegion"));
-            });
+                   
 
-            services.AddScoped(typeof(IDynamoDbRepository<>), typeof(DynamoDbRepository<>));
+            // AWS Options
+            var awsOptions = Configuration.GetAWSOptions();
+            services.AddDefaultAWSOptions(awsOptions);
+
+            var client = awsOptions.CreateServiceClient<IAmazonDynamoDB>();
+            var dynamoDbOptions = new DynamoDbOptions();
+            ConfigurationBinder.Bind(Configuration.GetSection("DynamoDbTables"), dynamoDbOptions);
+
+            // This is where the magic happens
+            services.AddScoped<IDynamoDbManager<MyModel>>(provider => new DynamoDbManager<MyModel>(client, dynamoDbOptions.MyModel));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

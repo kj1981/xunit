@@ -12881,11 +12881,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Karan Docs\\Sample Projects\\DynamoDBTest\\DynamoDBTest\\Dynamo\\Dynamo.csproj",
+      "projectUniqueName": "C:\\Karan Docs\\Sample Projects\\xunit\\xunit\\Dynamo\\Dynamo.csproj",
       "projectName": "Dynamo",
-      "projectPath": "C:\\Karan Docs\\Sample Projects\\DynamoDBTest\\DynamoDBTest\\Dynamo\\Dynamo.csproj",
+      "projectPath": "C:\\Karan Docs\\Sample Projects\\xunit\\xunit\\Dynamo\\Dynamo.csproj",
       "packagesPath": "C:\\Users\\i98446\\.nuget\\packages\\",
-      "outputPath": "C:\\Karan Docs\\Sample Projects\\DynamoDBTest\\DynamoDBTest\\Dynamo\\obj\\",
+      "outputPath": "C:\\Karan Docs\\Sample Projects\\xunit\\xunit\\Dynamo\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
