@@ -32,26 +32,34 @@ namespace Dynamo.Controllers
             conditions.Add(new ScanCondition("role", ScanOperator.Contains, role));
 
             List<MyModel> model = new List<MyModel>();
-
-            var result = await _dynamoDbManager.GetAsync(conditions);
-            model = (from r in result
-                     select r).ToList();
+            model = await _dynamoDbManager.GetAsync(conditions);            
 
             return Ok(model);
         }
 
         [HttpPost("api/save")]
-        public async Task<IActionResult> SaveData([FromBody] List<MyModel> listData, string input, string name, string type)
+        public async Task<IActionResult> SaveData([FromBody] List<MyModel> listData, string type)
         {
             List<MyModel> model = new List<MyModel>();
             foreach (var data in listData)
             {
-                //populating data here
-                //await await _dynamoDbManager.SaveAsync(model);
+                //populating data here and saving
+                 await _dynamoDbManager.SaveAsync(data);
             }
-
             return Ok();
-        }       
-       
+        }
+
+        [HttpDelete("api/delete")]
+        public async Task<IActionResult> DeleteData(string id)
+        {
+            List<ScanCondition> conditions = new List<ScanCondition>();
+            conditions.Add(new ScanCondition("id", ScanOperator.Equal, id));
+
+            MyModel model = new MyModel();
+            ///populating model here
+            await _dynamoDbManager.DeleteAsync(model);
+            return Ok();
+        }
+
     }
 }

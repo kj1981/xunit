@@ -28,5 +28,10 @@ namespace Dynamo.Helper
         {
             return base.SaveAsync(item, _config);
         }
+
+        public async Task DeleteAsync(T item)
+        {
+            await base.DeleteAsync(item, _config);
+        }
     }
 }

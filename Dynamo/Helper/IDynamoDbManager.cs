@@ -11,5 +11,7 @@ namespace Dynamo.Helper
         Task<List<T>> GetAsync(IEnumerable<ScanCondition> conditions);
 
         Task SaveAsync(T item);
+
+        Task DeleteAsync(T item);
     }
 }

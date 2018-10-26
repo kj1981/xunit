@@ -39,14 +39,49 @@ namespace ValuesControllerTests
             };
 
             _dbManager
-             .Setup(_ => _.GetAsync(It.Is<List<ScanCondition>>(list => list.Count == 2)))
+             .Setup(_ => _.GetAsync(It.IsAny<List<ScanCondition>>()))
              .ReturnsAsync(searchResult);
 
-            var result = await _valueController.GetAllData("new", "admin");
+            var result = _valueController.GetAllData("new", "admin");
+            Assert.IsType<OkObjectResult>(result.Result);            
+        }
 
-            var okResult = result as OkObjectResult;
+        [Fact]
+        public async Task SaveData_Test()
+        {   
+            var searchResult = new List<MyModel>()
+            {
+                new MyModel(){ }
+            };
 
-            Assert.NotNull(okResult);
+            _dbManager
+             .Setup(_ => _.GetAsync(It.IsAny<List<ScanCondition>>()))
+             .ReturnsAsync(searchResult);
+
+            var dataToSave = new List<MyModel>()
+            {
+                new MyModel(){},
+                new MyModel(){}
+            };
+
+            var result = _valueController.SaveData(dataToSave, "new");
+            Assert.IsType<OkObjectResult>(result.Result);            
+        }
+
+        [Fact]
+        public async Task DeleteData_Test()
+        {
+            var searchResult = new List<MyModel>()
+            {
+                new MyModel(){ }
+            };
+
+            _dbManager
+             .Setup(_ => _.GetAsync(It.IsAny<List<ScanCondition>>()))
+             .ReturnsAsync(searchResult);
+        
+            var result = _valueController.DeleteData("id123");
+            Assert.IsType<OkObjectResult>(result.Result);
         }
     }
 }
