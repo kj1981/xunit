@@ -1,19 +1,16 @@
-using System;
-using Xunit;
-using Moq;
-using Microsoft.Extensions.Options;
-using System.Collections;
-using System.Collections.Generic;
 using Amazon.DynamoDBv2.DataModel;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using Dynamo.Controllers;
 using Dynamo.Helper;
 using Dynamo.Model;
-using Dynamo.Controllers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Moq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace ValuesControllerTests
-{  
+{
     public class ValuesControllerTests
     {
         private Mock<IDynamoDbManager<MyModel>> _dbManager;
@@ -43,12 +40,12 @@ namespace ValuesControllerTests
              .ReturnsAsync(searchResult);
 
             var result = _valueController.GetAllData("new", "admin");
-            Assert.IsType<OkObjectResult>(result.Result);            
+            Assert.IsType<OkObjectResult>(result.Result);
         }
 
         [Fact]
         public async Task SaveData_Test()
-        {   
+        {
             var searchResult = new List<MyModel>()
             {
                 new MyModel(){ }
@@ -65,7 +62,7 @@ namespace ValuesControllerTests
             };
 
             var result = _valueController.SaveData(dataToSave, "new");
-            Assert.IsType<OkObjectResult>(result.Result);            
+            Assert.IsType<OkResult>(result.Result);
         }
 
         [Fact]
@@ -79,9 +76,9 @@ namespace ValuesControllerTests
             _dbManager
              .Setup(_ => _.GetAsync(It.IsAny<List<ScanCondition>>()))
              .ReturnsAsync(searchResult);
-        
-            var result = _valueController.DeleteData("id123");
-            Assert.IsType<OkObjectResult>(result.Result);
+
+            var result = await _valueController.DeleteData("id123");
+            Assert.IsType<OkResult>(result);
         }
     }
 }
